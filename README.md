@@ -65,57 +65,31 @@ That block I just gave you already is the most recent one — since `model.train
 
 Here's the whole block again on its own, ready to paste as one piece:
 
-```markdown
 ## Sanity check output
 
-This is the actual output from `python -m tests.sanity_check`, run against the trained model, unedited.
+This is the real output from `python -m tests.sanity_check`, run against the trained model.
 
-```
-======================================================================
-RULE CASES - deterministic, must match exactly
-======================================================================
-[PASS] "What's the status of ticket ERR-4021?"
-       expected: mode=fast, rule=literal_token_exact_match
-       got:      mode=fast, rule=literal_token_exact_match, graph_context=False
-[PASS] "What's our support email?"
-       expected: mode=fast, rule=short_direct_lookup
-       got:      mode=fast, rule=short_direct_lookup, graph_context=False
-[PASS] "How does the retry policy relate to timeout settings, and why does it depend on the connection pool configuration?"
-       expected: mode=thinking, rule=strong_relational_signal
-       got:      mode=thinking, rule=strong_relational_signal, graph_context=True
-[PASS] "What did they say about it, and is that still true?" (prior=300)
-       expected: mode=thinking, rule=coreference_heavy_needs_session_graph
-       got:      mode=thinking, rule=coreference_heavy_needs_session_graph
+**Rule cases** (deterministic, plain if statements, no model involved)
 
-======================================================================
-KEYWORD-BLIND CASES - conceptually relational, no marker words used
-======================================================================
-No 'expected' here - this is checking whether the model learned
-anything beyond the keyword list, or is blind without it.
+| Query | Expected | Got | Result |
+|---|---|---|---|
+| "What's the status of ticket ERR-4021?" | fast, literal_token_exact_match | fast, literal_token_exact_match | Pass |
+| "What's our support email?" | fast, short_direct_lookup | fast, short_direct_lookup | Pass |
+| "How does the retry policy relate to timeout settings, and why does it depend on the connection pool configuration?" | thinking, strong_relational_signal | thinking, strong_relational_signal | Pass |
+| "What did they say about it, and is that still true?" (prior context: 300 tokens) | thinking, coreference_heavy_needs_session_graph | thinking, coreference_heavy_needs_session_graph | Pass |
 
-"What connects the retry logic to the timeout configuration?"
-  -> mode=fast, confidence=0.909, rule=None
-     top features: has_relational_keywords (-1.56), token_count (-0.91), has_temporal_keywords (0.73)
+4 out of 4. This layer is just code, not a model, so there's nothing to argue with here, it either matches or it doesn't.
 
-"Is there a link between deploy frequency and incident count?"
-  -> mode=fast, confidence=0.896, rule=None
-     top features: has_relational_keywords (-1.65), relational_semantic_score (-0.76), has_temporal_keywords (0.75)
+**Keyword-blind cases** (queries that are relational in meaning but avoid every obvious keyword, checking whether the classifier learned anything beyond string matching)
 
-"What's tying the billing spike to the new pricing rollout?"
-  -> mode=fast, confidence=0.942, rule=None
-     top features: has_relational_keywords (-1.62), token_count (-1.01), has_temporal_keywords (0.64)
+| Query | Decision | Confidence | Top feature pulling it toward "fast" |
+|---|---|---|---|
+| "What connects the retry logic to the timeout configuration?" | fast | 0.909 | has_relational_keywords |
+| "Is there a link between deploy frequency and incident count?" | fast | 0.896 | has_relational_keywords |
+| "What's tying the billing spike to the new pricing rollout?" | fast | 0.942 | has_relational_keywords |
+| "Something changed about the access policy since last month, what?" | fast | 0.997 | has_temporal_keywords |
 
-"Something changed about the access policy since last month - what?"
-  -> mode=fast, confidence=0.997, rule=None
-     top features: has_temporal_keywords (-2.29), token_count (-1.68), has_relational_keywords (-1.54)
-
-======================================================================
-RULE CASES: 4/4 passed
-======================================================================
-```
-
-The rule cases pass exactly every time, that layer is deterministic code, not a model, so there's nothing to argue with. The keyword-blind cases are the more useful ones to look at closely. All four get called "fast" with high confidence, and in every case `has_relational_keywords` is the top feature dragging that decision down. That's the classifier telling on itself. It's leaning on the presence of a literal keyword like "relate" or "depend" rather than understanding the underlying relational structure of the sentence. I tried to fix that three separate ways (see above), and none of them worked, which is a more useful thing to know going in than a model that quietly hides this limitation behind a good looking accuracy number.
-```
+All four came back "fast," and in every case the deciding feature is a keyword flag, not the semantic score. That's the classifier telling on itself. It's picking up on the literal presence of a word like "relate" or "depend" instead of understanding what the sentence is actually asking. I tried to fix this three separate ways, described above, and none of them worked. Knowing exactly where a model breaks and why is more useful than a good looking number that hides the same problem.
 
 ## What I'd do differently with more time or real usage data
 
