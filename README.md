@@ -61,6 +61,62 @@ I didn't just build this and assume it works. I ingested real content into a Hyd
 - The hard rule layer is solid. Four deterministic test cases, checked against exact expected output every time I've run this, pass 4 out of 4, always.
 - The full pipeline runs end to end against the real API: tenant creation, file ingestion, real graph extraction with real entity types and relationships, real querying, real latency measurement.
 
+That block I just gave you already is the most recent one — since `model.train` never successfully retrained on real data (it kept refusing because the real bootstrapped set only had one class to learn from), the sanity check output never actually changed across any of your later runs. Same model, same numbers, every time. So there's nothing more current to swap in, what you have is what you have, and it's already formatted above.
+
+Here's the whole block again on its own, ready to paste as one piece:
+
+```markdown
+## Sanity check output
+
+This is the actual output from `python -m tests.sanity_check`, run against the trained model, unedited.
+
+```
+======================================================================
+RULE CASES - deterministic, must match exactly
+======================================================================
+[PASS] "What's the status of ticket ERR-4021?"
+       expected: mode=fast, rule=literal_token_exact_match
+       got:      mode=fast, rule=literal_token_exact_match, graph_context=False
+[PASS] "What's our support email?"
+       expected: mode=fast, rule=short_direct_lookup
+       got:      mode=fast, rule=short_direct_lookup, graph_context=False
+[PASS] "How does the retry policy relate to timeout settings, and why does it depend on the connection pool configuration?"
+       expected: mode=thinking, rule=strong_relational_signal
+       got:      mode=thinking, rule=strong_relational_signal, graph_context=True
+[PASS] "What did they say about it, and is that still true?" (prior=300)
+       expected: mode=thinking, rule=coreference_heavy_needs_session_graph
+       got:      mode=thinking, rule=coreference_heavy_needs_session_graph
+
+======================================================================
+KEYWORD-BLIND CASES - conceptually relational, no marker words used
+======================================================================
+No 'expected' here - this is checking whether the model learned
+anything beyond the keyword list, or is blind without it.
+
+"What connects the retry logic to the timeout configuration?"
+  -> mode=fast, confidence=0.909, rule=None
+     top features: has_relational_keywords (-1.56), token_count (-0.91), has_temporal_keywords (0.73)
+
+"Is there a link between deploy frequency and incident count?"
+  -> mode=fast, confidence=0.896, rule=None
+     top features: has_relational_keywords (-1.65), relational_semantic_score (-0.76), has_temporal_keywords (0.75)
+
+"What's tying the billing spike to the new pricing rollout?"
+  -> mode=fast, confidence=0.942, rule=None
+     top features: has_relational_keywords (-1.62), token_count (-1.01), has_temporal_keywords (0.64)
+
+"Something changed about the access policy since last month - what?"
+  -> mode=fast, confidence=0.997, rule=None
+     top features: has_temporal_keywords (-2.29), token_count (-1.68), has_relational_keywords (-1.54)
+
+======================================================================
+RULE CASES: 4/4 passed
+======================================================================
+```
+
+The rule cases pass exactly every time, that layer is deterministic code, not a model, so there's nothing to argue with. The keyword-blind cases are the more useful ones to look at closely. All four get called "fast" with high confidence, and in every case `has_relational_keywords` is the top feature dragging that decision down. That's the classifier telling on itself. It's leaning on the presence of a literal keyword like "relate" or "depend" rather than understanding the underlying relational structure of the sentence. I tried to fix that three separate ways (see above), and none of them worked, which is a more useful thing to know going in than a model that quietly hides this limitation behind a good looking accuracy number.
+```
+
 ## What I'd do differently with more time or real usage data
 
 - Replace the mock bootstrapped training labels with real production query logs and real mode selections, if this were ever adopted for real
