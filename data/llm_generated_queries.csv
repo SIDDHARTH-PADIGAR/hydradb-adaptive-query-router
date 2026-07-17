@@ -1,0 +1,151 @@
+query,label_mode,session_turn_number,prior_context_tokens
+What is my current billing plan?,fast,5,300
+When is my next invoice due?,fast,5,200
+Download my latest invoice,fast,6,300
+What payment methods do you accept?,fast,2,90
+How do I update my credit card?,fast,6,200
+What is my monthly subscription cost?,fast,1,0
+Show my outstanding balance,fast,1,0
+Can I switch to annual billing?,fast,5,140
+Where can I find my billing history?,fast,1,0
+Do you charge sales tax?,fast,1,0
+How do I cancel my subscription?,fast,6,450
+My bill jumped this month after I added seats and removed one later. Can you break down exactly what happened?,thinking,1,0
+I paid twice but still see an unpaid balance. What should I do?,thinking,4,200
+"We upgraded, downgraded, and added credits this quarter. What amount should we actually owe today?",thinking,1,0
+"If I move to annual now, what happens to the remaining monthly charges and credits?",thinking,1,0
+How do I enable two-factor authentication?,fast,6,50
+Reset my password,fast,1,0
+Where can I see active sessions?,fast,1,0
+How do I revoke an API key?,fast,2,90
+Can I use a security key for login?,fast,1,0
+How long do password reset links last?,fast,5,140
+Where do I manage trusted devices?,fast,5,300
+What are the password requirements?,fast,2,300
+How do I report a suspicious login?,fast,2,450
+Can I force logout on all devices?,fast,2,200
+How do I enable SSO?,fast,1,0
+I was locked out right after signing in from a new laptop while my teammate could still get in. What likely triggered that?,thinking,1,0
+We rotated our credentials and now automation fails while interactive login works. What is most likely going on?,thinking,5,450
+An employee left last week. Tell me everything that still needs attention before their access is fully gone.,thinking,2,200
+I'm seeing security alerts from places I've never been even after changing my password. What should I check first?,thinking,6,50
+How do I deploy the application?,fast,2,140
+Where is the deployment guide?,fast,2,300
+Which regions are supported?,fast,2,50
+How do I roll back a release?,fast,1,0
+What Kubernetes versions are supported?,fast,1,0
+How do I configure environment variables?,fast,4,50
+Where can I view deployment logs?,fast,2,200
+How do I restart a service?,fast,1,0
+What is the default deployment timeout?,fast,1,0
+Can I deploy with Docker Compose?,fast,1,0
+How do I enable autoscaling?,fast,2,90
+Our rollout succeeded but customers still hit the old version in one region. Walk me through what could explain that.,thinking,1,0
+Traffic dropped after yesterday's release even though every health check stayed green. Help narrow it down.,thinking,5,200
+A new worker image is running but queued jobs are stuck. What should I inspect next?,thinking,4,200
+We updated infrastructure and now only background tasks fail while the web app works. What's the likely sequence behind this?,thinking,1,0
+How do I create my first workspace?,fast,2,450
+Where is the onboarding checklist?,fast,2,140
+Can I invite teammates during setup?,fast,1,0
+What is the quick start guide?,fast,2,140
+How long does onboarding usually take?,fast,1,0
+Where do I upload my company logo?,fast,4,50
+Can I skip the tutorial?,fast,1,0
+How do I import contacts?,fast,2,450
+What file formats are supported for import?,fast,1,0
+Where can I edit company details?,fast,1,0
+How do I resend an invitation email?,fast,1,0
+My teammates finished setup but still can't use the product fully. What step are we missing?,thinking,5,200
+"We imported users, assigned roles, and finished setup, yet only some people can access projects. Help figure this out.",thinking,1,0
+The welcome emails arrived but nobody received the follow-up tasks. What likely happened?,thinking,6,90
+We followed the setup guide exactly and still hit blockers before launch. Where should we look first?,thinking,5,300
+Which plans include SAML?,fast,2,450
+Is dark mode available?,fast,1,0
+Can free users export data?,fast,4,450
+Where do I enable audit logs?,fast,4,50
+Does this feature require Enterprise?,fast,4,200
+Is custom branding supported?,fast,2,50
+Can guests upload files?,fast,2,300
+How many API calls are included?,fast,2,50
+Is offline mode available?,fast,2,90
+Can I use custom domains?,fast,4,300
+Are feature flags enabled by default?,fast,1,0
+Our admin can use the feature but managers cannot even after upgrading. What explains the difference?,thinking,1,0
+We bought a higher plan and still don't see advanced reporting. What else needs to happen before it appears?,thinking,1,0
+Only one workspace has access even though they're under the same company account. Help identify the blocker.,thinking,2,200
+A beta capability shows up for one team but not another. What conditions could cause that?,thinking,2,50
+How do I open a support ticket?,fast,3,140
+Where can I check ticket status?,fast,4,50
+Can I attach screenshots to a ticket?,fast,1,0
+What are support hours?,fast,1,0
+How do I reopen a closed ticket?,fast,2,300
+Where can I see ticket priority?,fast,2,50
+Do you offer phone support?,fast,3,140
+How do I escalate an issue?,fast,5,90
+What is the average response time?,fast,5,300
+Can I CC teammates on a ticket?,fast,1,0
+How do I download ticket transcripts?,fast,4,90
+I've opened three tickets about the same problem and keep getting different answers. Can you make sense of it?,thinking,1,0
+The issue keeps returning after every fix. What pattern do you see across my cases?,thinking,2,90
+My ticket was marked solved but the problem is still happening after the last update. What should happen next?,thinking,2,450
+We reported this from two accounts and only one received engineering attention. What likely drove that outcome?,thinking,2,90
+How many active users do we have?,fast,6,90
+Show yesterday's page views,fast,4,200
+What was our DAU today?,fast,1,0
+Where do I export analytics?,fast,4,50
+Can I filter by country?,fast,1,0
+How often are dashboards refreshed?,fast,1,0
+What is the retention report?,fast,1,0
+How do I create a custom dashboard?,fast,6,140
+Can I download data as CSV?,fast,2,450
+What time zone do reports use?,fast,4,140
+How do I track conversions?,fast,4,300
+Signups increased but paid users did not. What story do the numbers tell?,thinking,5,140
+Our campaign brought lots of traffic yet engagement stayed low. What should we investigate first?,thinking,6,90
+Which events line up with the sudden drop in daily activity last week?,thinking,1,0
+People are finishing onboarding but not returning the next day. What stands out?,thinking,1,0
+How many open deals do we have?,fast,2,200
+Show deals closing this month,fast,6,450
+Who is assigned to Acme Corp?,fast,1,0
+What is the value of the pipeline?,fast,2,90
+How do I create a new opportunity?,fast,2,450
+Can I export deals?,fast,1,0
+What stages are available?,fast,1,0
+Where do I edit a lead?,fast,2,200
+How do I archive a deal?,fast,5,90
+Can I add custom fields?,fast,1,0
+How do I merge duplicate leads?,fast,1,0
+We've had several large deals slip at the last minute. What common factors are showing up?,thinking,1,0
+Our biggest opportunity stalled after legal review. What likely held it back?,thinking,2,140
+Which accounts deserve immediate attention before quarter end based on everything we know?,thinking,6,300
+Revenue forecast dropped even though new opportunities were added. Help explain it.,thinking,1,0
+Where can I download the MSA?,fast,1,0
+How do I upload a signed contract?,fast,3,90
+What is the renewal date?,fast,5,140
+Can I edit contract metadata?,fast,6,300
+Where are NDAs stored?,fast,1,0
+How do I request legal review?,fast,1,0
+What file formats are accepted?,fast,1,0
+Can I search contract text?,fast,5,140
+How do I add a signer?,fast,2,50
+Where can I view contract status?,fast,1,0
+Do you support electronic signatures?,fast,1,0
+We signed the agreement but access still hasn't started. What else needs to happen?,thinking,5,50
+Several documents mention different renewal terms. Which one actually governs this customer?,thinking,2,140
+A customer says pricing in the order form doesn't match the invoice. Help reconcile it.,thinking,1,0
+What obligations become active after the final signature is collected?,thinking,1,0
+Is there an ongoing incident?,fast,1,0
+What is the current system status?,fast,5,300
+Where is the status page?,fast,3,450
+How do I subscribe to incident updates?,fast,1,0
+What was the incident ID?,fast,1,0
+Which services are affected?,fast,3,140
+Has the incident been resolved?,fast,1,0
+When was the last update posted?,fast,5,50
+Can I download the postmortem?,fast,4,50
+What severity is this incident?,fast,5,300
+Who is the incident commander?,fast,1,0
+"Errors started after a network alert, then database latency increased, and finally logins failed. What sequence fits those events?",thinking,4,200
+Customers in Europe were affected but North America stayed healthy. What could explain that split?,thinking,1,0
+The alert volume exploded after maintenance even though CPU stayed normal. Where should we focus first?,thinking,1,0
+One fix reduced errors briefly before they returned. What does that suggest about the remaining issue?,thinking,1,0

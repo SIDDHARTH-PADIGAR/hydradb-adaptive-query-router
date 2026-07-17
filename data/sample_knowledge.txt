@@ -1,0 +1,16 @@
+﻿The payments service is owned by the platform team. It depends on the billing service for invoice generation, and the billing service depends on the pricing engine for rate calculations.
+
+
+In March, the platform team migrated the payments service database from MySQL to Postgres. This migration was driven by scaling issues encountered during the previous quarter.
+
+
+The support team escalates payments-related tickets to the platform team when they involve failed transactions. The average response time for these escalations is four hours.
+
+
+The enterprise plan includes dedicated infrastructure and a 99.9% uptime SLA. The scale plan does not include dedicated infrastructure but does include priority support.
+
+
+Last quarter, an incident in the payments service was traced back to a configuration change in the billing service deployed the same week. The incident was resolved by rolling back that configuration change.
+
+
+Access to the payments service requires approval from the platform team lead. New engineers get read-only access by default and must request elevated access separately.

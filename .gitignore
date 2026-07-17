@@ -1,0 +1,30 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.Python
+*.egg-info/
+
+# Environment / secrets
+.env
+*.env
+
+# Model artifacts (regenerate via training scripts, don't commit)
+model/router_model.json
+model/router_model_meta.json
+data/bootstrapped_labels.csv
+
+# Editor
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Sentence transformer cache (downloads locally, don't commit)
+.cache/
+
+# Logs, if you ever add any
+*.log
